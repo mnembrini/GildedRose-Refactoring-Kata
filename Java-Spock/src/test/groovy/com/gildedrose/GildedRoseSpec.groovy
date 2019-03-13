@@ -10,6 +10,39 @@ class GildedRoseSpec extends Specification {
 
 
 
+  @Unroll
+  void "update normal item day #day"() {
+    given:
+    String name = "+5 Dexterity Vest"
+    int initialSellIn = 10
+    int initialQuality = 20
+    GildedRose app = new GildedRose([new Item(name, initialSellIn, initialQuality)] as Item[])
+
+    when:
+    day.times { app.updateQuality()}
+
+    then:
+    app.items[0].name == name
+    app.items[0].quality == quality
+    app.items[0].sellIn == sellIn
+
+    where:
+    day | sellIn | quality
+    0 | 10 | 20
+    1 | 9 | 19
+    2 | 8 | 18
+    3 | 7 | 17
+    4 | 6 | 16
+    5 | 5 | 15
+    6 | 4 | 14
+    7 | 3 | 13
+    8 | 2 | 12
+    9 | 1 | 11
+    10 | 0 | 10
+    11 | -1 | 8
+    12 | -2 | 6
+  }
+
     @Unroll
     def "should update quality correctly #name "() {
 
