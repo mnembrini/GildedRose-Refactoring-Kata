@@ -24,19 +24,20 @@ class GildedRoseSpec extends Specification {
         for (int days: expectedSellIn) {
           app.updateQuality()
           Item updatedItem = app.items[0]
-          Item savedItem = new Item()
-          updates.add(new Item(app.items[0]))
+          Item savedItem = new Item(updatedItem.name, updatedItem.sellIn, updatedItem.quality)
+          updates.add(savedItem)
         }
 
-        then: "the quality is correct"
-        app.items[0].name == name
-        app.items[0].sellIn == name
-        app.items[0].name == name
+        then: "the quality is correct for each day"
+        updates*.name.unique() == [name]
+        updates*.sellIn == expectedSellIn
+        updates*.quality == expectedQuality
 
         where:
 
         name | sellIn | quality || expectedSellIn | expectedQuality
-        "+5 Dexterity Vest" | 5 | 20 || 4..-2 | 19..13
+        // quality decreases faster after sellIn == 0
+        "+5 Dexterity Vest" | 5 | 20 || 4..-2 | [19,18,17,16, 15, 13,11]
 //        new Item("Aged Brie", 2, 0), //
 //        new Item("Elixir of the Mongoose", 5, 7), //
 //        new Item("Sulfuras, Hand of Ragnaros", 0, 80), //
