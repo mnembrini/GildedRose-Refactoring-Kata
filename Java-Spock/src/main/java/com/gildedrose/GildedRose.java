@@ -28,23 +28,19 @@ class GildedRose {
         sulfuras.maxQuality = Integer.MAX_VALUE;
 
         this.rules = List.of(
-                defaultRule,
                 agedBrie,
                 backstagePasses,
-                sulfuras
-
+                sulfuras,
+                defaultRule
         );
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-
-            for (UpdateRule rule : rules) {
-                if (rule.applies(items[i].name)) {
-                    rule.apply(items[i]);
-                }
-            }
-
+        for (Item item : items) {
+            UpdateRule updateRule = rules.stream().filter(it -> it.applies(item.name))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Could not find rule for item " + item));
+            updateRule.apply(item);
         }
     }
 
