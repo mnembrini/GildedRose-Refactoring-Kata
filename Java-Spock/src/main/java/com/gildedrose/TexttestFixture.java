@@ -8,6 +8,10 @@ public class TexttestFixture {
             days = Integer.parseInt(args[0]) + 1;
         }
 
+        printProgressFor(days);
+    }
+
+    private static void printProgressFor(int days) {
         Item[] items = new Item[]{
                 new Item("+5 Dexterity Vest", 10, 20), //
                 new Item("Aged Brie", 2, 0), //
