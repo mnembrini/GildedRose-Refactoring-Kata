@@ -17,7 +17,8 @@ class GildedRoseSpec extends Specification {
     String progress = TexttestFixture.progressFor(20)
 
     then:
-    InputStream inputStream = getClass().getResourceAsStream("/test20.txt")
+    // test20.txt is the original output, but the conjured items were wrong
+    InputStream inputStream = getClass().getResourceAsStream("/test20-conjured.txt")
     String expected = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8)
     progress == expected
 
