@@ -7,7 +7,8 @@ public class UpdateRule {
     String namePrefix = "";
     Function<Item, Integer> updateQuality;
     Function<Item, Integer> updateSellIn = (item) -> item.sellIn - 1;
-    int maxQuality;
+    int maxQuality = 50;
+    int minQuality = 0;
 
     public UpdateRule(Function<Item, Integer> updateQuality) {
         this.updateQuality = updateQuality;
@@ -30,7 +31,7 @@ public class UpdateRule {
 
     void apply(Item item) {
         item.quality = updateQuality.apply(item);
-        item.quality = clamp(item.quality, 0, 50);
+        item.quality = clamp(item.quality, minQuality, maxQuality);
 
         item.sellIn = updateSellIn.apply(item);
     }
