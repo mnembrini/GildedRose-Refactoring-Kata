@@ -11,7 +11,7 @@ public class TexttestFixture {
         System.out.println(progressFor(days));
     }
 
-    private static String progressFor(int days) {
+    public static String progressFor(int days) {
         StringBuffer sb = new StringBuffer();
         Item[] items = new Item[]{
                 new Item("+5 Dexterity Vest", 10, 20), //
