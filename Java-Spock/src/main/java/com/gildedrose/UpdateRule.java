@@ -30,8 +30,14 @@ public class UpdateRule {
     }
 
     void apply(Item item) {
-        item.quality = updateQuality.apply(item);
-        item.quality = clamp(item.quality, minQuality, maxQuality);
+        int oldQuality = item.quality;
+        int quality = updateQuality.apply(item);
+
+        if (item.sellIn <= 0) {
+            // quality changes twice as fast
+            quality += (quality - oldQuality);
+        }
+        item.quality = clamp(quality, minQuality, maxQuality);
 
         item.sellIn = updateSellIn.apply(item);
     }
