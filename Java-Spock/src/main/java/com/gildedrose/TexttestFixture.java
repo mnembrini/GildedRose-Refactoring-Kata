@@ -8,10 +8,11 @@ public class TexttestFixture {
             days = Integer.parseInt(args[0]) + 1;
         }
 
-        printProgressFor(days);
+        System.out.println(progressFor(days));
     }
 
-    private static void printProgressFor(int days) {
+    private static String progressFor(int days) {
+        StringBuffer sb = new StringBuffer();
         Item[] items = new Item[]{
                 new Item("+5 Dexterity Vest", 10, 20), //
                 new Item("Aged Brie", 2, 0), //
@@ -28,14 +29,21 @@ public class TexttestFixture {
 
 
         for (int i = 0; i < days; i++) {
-            System.out.println("-------- day " + i + " --------");
-            System.out.println("name, sellIn, quality");
+            sb.append("-------- day " + i + " --------");
+            sb.append("\n");
+
+            sb.append("name, sellIn, quality");
+            sb.append("\n");
+
             for (Item item : items) {
-                System.out.println(item);
+                sb.append(item);
+                sb.append("\n");
             }
-            System.out.println();
+
+            sb.append("\n");
             app.updateQuality();
         }
+        return sb.toString();
     }
 
 }
